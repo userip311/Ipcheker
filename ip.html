@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Time and IP Address</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #BF5111;
+            margin: 0;
+            color: #f2C438;
+        }
+        .container {
+            text-align: center;
+            background: #038C8C;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        .info {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #BFD1D9;
+        }
+        h1 {
+            color: #72BF6F;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Local Date, Time, and IP Address</h1>
+        <div class="info" id="datetime"></div>
+        <div class="info" id="ip"></div>
+    </div>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const datetimeElement = document.getElementById('datetime');
+            datetimeElement.textContent = `Date and Time: ${now.toLocaleString()}`;
+        }
+
+        function fetchIPAddress() {
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const ipElement = document.getElementById('ip');
+                    ipElement.textContent = `Your IP Address: ${data.ip}`;
+                })
+                .catch(error => 
+                    console.error('Error fetching IP address:', error);
+                });
+        }
+
+        // Update the date and time every second
+        setInterval(updateDateTime, 1000);
+        // Fetch IP address when the page loads
+        fetchIPAddress();
+    </script>
+</body>
+</html>
